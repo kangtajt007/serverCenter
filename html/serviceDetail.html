@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="baseApp">
+<head>
+    <meta charset="utf-8">
+    <title>服务详情</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+</head>
+<body style="overflow-x: hidden;" ng-controller="serviceDetailCtrl">
+    <div class="container-fluid" style="margin: 10px;">
+        <a class="btn btn-primary" style="margin-bottom: 10px;"><i class="fa fa-send" style="margin-right: 8px;"></i>申请该服务</a>
+        <div class="panel panel-default">
+            <div class="panel-heading">基本信息</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>服务名称:</strong>
+                                <span>{{serviceDetail.name}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>服务ID:</strong>
+                                <span>{{serviceDetail.id}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>关键词:</strong>
+                                <span class="select-condition" ng-repeat="word in serviceDetail.keyword">{{word}}</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-4">
+                                <strong>服务种类:</strong>
+                                <span>{{serviceDetail.species}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>服务类型:</strong>
+                                <span>{{serviceDetail.type}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>服务版本:</strong>
+                                <span>{{serviceDetail.version}}</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-7">
+                                <strong>服务地址:</strong>
+                                <a href="{{serviceDetail.address}}">{{serviceDetail.address}}</a>
+                            </div>
+                            <div class="col-md-5">
+                                <strong>注册时间:</strong>
+                                <span>{{serviceDetail.registerTime}}</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-12">
+                                <strong>服务描述:</strong>
+                                <span>{{serviceDetail.description}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <img ng-src="{{serviceDetail.thumbnail}}" alt="服务缩略图" width="200" height="200" class="img-thumbnail">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">服务描述信息</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <strong>服务覆盖范围:</strong>
+                        <span class="select-condition">东经{{serviceDetail.extend.east}}</span>
+                        <span class="select-condition">西经{{serviceDetail.extend.west}}</span>
+                        <span class="select-condition">北纬{{serviceDetail.extend.north}}</span>
+                        <span class="select-condition">南纬{{serviceDetail.extend.south}}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>坐标系:</strong>
+                        <span>{{serviceDetail.coordinateSystem}}</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px">
+                    <div class="col-md-12">
+                        <strong>备注:</strong>
+                        <span>{{serviceDetail.memo}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">联系人</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>服务所属单位:</strong>
+                        <span>{{serviceDetail.belongTo}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>联系人:</strong>
+                        <span>{{serviceDetail.linkMan}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>联系电话:</strong>
+                        <span>{{serviceDetail.telephone}}</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-12">
+                        <strong>详细地址:</strong>
+                        <span>{{serviceDetail.linkAddress}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">下载资料</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="list-inline">
+                            <li ng-repeat="resource in serviceDetail.downloadResource">
+                                <a href="{{resource.href}}">{{resource.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

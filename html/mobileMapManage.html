@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="baseApp">
+<head>
+    <meta charset="utf-8">
+    <title>移动地图管理</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <link type="text/css" rel="stylesheet" href="../css/zTreeStyle.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <script type="text/javascript" src="../js/jquery.ztree.core.min.js"></script>
+</head>
+<body style="overflow-x: hidden;" ng-controller="mobileMapCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">组织机构</div>
+                    <div class="panel-body">
+                        <ul id="ztree" class="ztree" style="height: 450px;"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-default" style="height: 520px;margin-right: 10px;">
+                    <div class="panel-body">
+                        <table class="table table-bordered" style="width: 97%;margin:0 0 0 15px;">
+                            <thead style="background: #BFE3EC;">
+                            <tr>
+                                <th width="250">地图资源名称</th>
+                                <th>类型</th>
+                                <th>大小</th>
+                                <th>上传时间</th>
+                                <th>文件名称</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="service in services">
+                                <td>{{service.title}}</td>
+                                <td>{{service.type}}</td>
+                                <td>{{service.size}}</td>
+                                <td>{{service.time}}</td>
+                                <td>
+                                    <a href="{{service.href}}">
+                                        <i class="fa fa-file"></i>
+                                        {{service.fileName}}
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

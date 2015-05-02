@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="statisticalApp">
+<head>
+    <meta charset="utf-8">
+    <title>服务访问情况</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/statistical.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <script type="text/javascript" src="../js/highstock.min.js"></script>
+    <script type="text/javascript" src="../js/highcharts-ng.js"></script>
+</head>
+<body style="overflow-x: hidden;" ng-controller="serviceReqCtrl">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>服务访问量top10</strong>
+                    <a class="fa fa-reorder pull-right" tooltip="更多" tooltip-placement="bottom"></a>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <label style="margin-left: 9px;">服务类型:</label>
+                        <select ng-change="filterService()" ng-model="serviceType">
+                            <option value="all">全部</option>
+                            <option value="map">地图服务</option>
+                            <option value="resource">资源服务</option>
+                            <option value="address">地址服务</option>
+                            <option value="app">应用服务</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>服务名称</th>
+                                    <th>访问数</th>
+                                    <th>排名</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="topService in topServices">
+                                    <td>{{topService.title}}</td>
+                                    <td>{{topService.times}}</td>
+                                    <td>{{$index+1}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row" style="margin-right: 10px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>服务总访问情况</strong>
+                        <span class="pull-right">服务总访问量:50213</span>
+                    </div>
+                    <div class="panel-body">
+                        <div highchart id="chart1" config="totalConfig"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-right: 10px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>月访问情况</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div highchart id="chart2" config="monthConfig"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

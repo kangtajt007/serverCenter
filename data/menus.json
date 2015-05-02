@@ -1,0 +1,79 @@
+[
+  {
+    "title": "首页",
+    "href":"home.html"
+  },
+  {
+    "title": "服务查询",
+    "children": [
+      {
+        "title": "地图服务",
+        "href": "serviceQuery.html?type=1",
+        "icon": "fa-server"
+      },
+      {
+        "title": "地址服务",
+        "href": "serviceQuery.html?type=2",
+        "icon": "fa-street-view"
+      },
+      {
+        "title": "资源服务",
+        "href": "serviceQuery.html?type=3",
+        "icon": "fa-newspaper-o"
+      },
+      {
+        "title": "应用服务",
+        "href": "serviceQuery.html?type=4",
+        "icon": "fa-cubes"
+      }
+    ]
+  },
+  {
+    "title": "我的申请",
+    "href":"myApply.html"
+  },
+  {
+    "title": "开发指南",
+    "children": [
+      {
+        "title": "栅格地图服务",
+        "href": "developGuide.html",
+        "icon": "fa-bars"
+      },
+      {
+        "title": "数据访问服务",
+        "href": "developGuide.html",
+        "icon": "fa-database"
+      },
+      {
+        "title": "智能地址搜索服务",
+        "href": "developGuide.html",
+        "icon": "fa-desktop"
+      }
+    ]
+  },
+  {
+    "title": "移动地图管理",
+    "href":"mobileMapManage.html"
+  },
+  {
+    "title": "服务成效统计",
+    "children": [
+      {
+        "title": "服务访问情况",
+        "href": "serviceRequest.html",
+        "icon": "fa-phone"
+      },
+      {
+        "title": "服务运行状况",
+        "href": "serviceRunning.html",
+        "icon": "fa-ils"
+      },
+      {
+        "title": "三库资源统计",
+        "href": "databaseResource.html",
+        "icon": "fa-line-chart"
+      }
+    ]
+  }
+]

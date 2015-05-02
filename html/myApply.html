@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="baseApp">
+<head>
+    <meta charset="utf-8">
+    <title>我的申请</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+</head>
+<body style="overflow-x: hidden;" ng-controller="myApplyServiceCtrl">
+    <div class="container-fluid" style="margin: 10px;">
+        <div class="list-group-item row" style="margin:0 1px;">
+            <div class="col-md-2">
+                <strong>服务状态:</strong>
+            </div>
+            <div class="col-md-10">
+                <ul class="list-inline" style="margin-bottom: -10px;">
+                    <li ng-click="toggleCondition('all')">
+                        <span ng-class="{'label label-primary':curCondition=='all'}">全部({{total['all']}})</span>
+                    </li>
+                    <li ng-click="toggleCondition('1')" class="condition-item">
+                        <span  ng-class="{'label label-primary':curCondition=='1'}">待申请({{total['1']}})</span>
+                    </li>
+                    <li ng-click="toggleCondition('2')" class="condition-item">
+                        <span  ng-class="{'label label-primary':curCondition=='2'}">待审核({{total['2']}})</span>
+                    </li>
+                    <li ng-click="toggleCondition('3')" class="condition-item">
+                        <span  ng-class="{'label label-primary':curCondition=='3'}">已审核({{total['3']}})</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <table style="margin: 17px;width: 97%;">
+                <thead>
+                    <tr class="apply-thead">
+                        <th width="300">服务名称</th>
+                        <th>服务ID</th>
+                        <th>所属单位</th>
+                        <th>版本</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody ng-if="!serviceList||serviceList.length==0">
+                    <tr style="height:20px;"><td colspan="5"></td></tr>
+                    <tr class="apply-no-result">
+                        <td colspan="5">
+                            尚未申请服务，通过<a href="#" ng-click="jumpToServiceQuery()">服务查询</a>页面可以申请服务。
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="serviceList&&serviceList.length>0">
+                    <tr style="height:10px;"><td colspan="5"></td></tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="checkbox" style="margin-left: 3px;">
+                                        <label>
+                                            <input type="checkbox" ng-click="checkAll($event)">
+                                            全选
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" style="height: 40px;line-height: 37px;">
+                                    <a class="btn btn-primary fa fa-save" ng-click="applySubmit()" style="margin-left: 10px;">批量提交</a>
+                                    <a class="btn btn-default fa fa-remove" ng-click="removeAll()">批量删除</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="serviceList&&serviceList.length>0" ng-repeat="service in serviceList">
+                    <tr>
+                        <td colspan="5" style="height: 15px;"></td>
+                    </tr>
+                    <tr class="apply-title-tr">
+                        <td colspan="5">
+                            <div class="row">
+                                <div class="col-md-5 disabled">
+                                    <div class="checkbox" ng-class="{disabled:service.status!=3}" style="margin-left: 10px;">
+                                        <label>
+                                            <input type="checkbox" ng-model="service.checked" ng-disabled="service.status!=3">
+                                            <strong>申请编号:{{service.applyNum||'未生成'}}</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+
+                                </div>
+                                <div class="col-md-3 more-opration-div">
+                                    <span class="pull-right" ng-if="service.status==1">审核时间:{{service.auditTime}}</span>
+                                    <span class="pull-right" ng-if="service.status==2">申请时间:{{service.applyTime}}</span>
+                                    <div class="pull-right" ng-if="service.status==3">
+                                        <a class="btn btn-primary fa fa-save" ng-click="applySubmit()">申请</a>
+                                        <a class="btn btn-default fa fa-remove" ng-click="removeService(service)">删除</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="apply-body-tr">
+                        <td>
+                            <div>
+                                <strong>{{service.title}}</strong>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                {{service.desc}}
+                            </div>
+                        </td>
+                        <td>{{service.id}}</td>
+                        <td>{{service.belongTo}}</td>
+                        <td>{{service.version}}</td>
+                        <td>
+                            <span class="label label-success" ng-if="service.status==1">已审核</span>
+                            <span class="label label-warning" ng-if="service.status==2">待审核</span>
+                            <span class="label label-danger" ng-if="service.status==3">待申请</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="baseApp">
+<head>
+    <meta charset="utf-8">
+    <title>服务中心</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var h = $(document).height();
+            $("#iframe").height(h-150);
+        });
+
+        function getScope(){
+            return $('body').scope();
+        }
+
+        function showModalDialog(opt){
+            getScope().showModal(opt);
+        }
+
+        function toggleMenu(href){
+            getScope().toggleMenuByHref(href);
+        }
+
+        function addPostionStack(item){
+            getScope().add2positionStack(item);
+        }
+    </script>
+</head>
+<body style="overflow: hidden;" ng-controller="indexCtrl">
+<div class="masthead" style="background: url('../img/top_bg.png')">
+    <img src="../img/logo.png" width="210">
+    <div class="pull-right">
+        <span>admin</span>
+        |
+        <a ng-click="showModal()">退出</a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div ng-class="{'col-md-1':collapse,'col-md-2':!collapse}">
+            <div ng-if="!collapse" accordion close-others="true" style="margin-top: 10px;">
+                <div accordion-group="" ng-repeat="menu in menus" is-disabled="!menu.children">
+                    <div accordion-heading="">
+                        <div ng-if="!menu.children">
+                            <a class="href-item active" ng-class="{'href-item-active':curItem==menu}" ng-click="toggleMenu(menu)">{{menu.title}}</a>
+                        </div>
+                        <div ng-if="menu.children">
+                            <span>{{menu.title}}</span>
+                            <i class="fa fa-chevron-right pull-right"></i>
+                        </div>
+                    </div>
+                    <li class="list-group-item" ng-repeat="item in menu.children">
+                        <a class="href-item" ng-class="{'href-item-active':curItem==item}" ng-click="toggleMenu(item,menu)"><i class="fa {{item.icon}}"></i><span>{{item.title}}</span></a>
+                    </li>
+                </div>
+            </div>
+            <div class="sidebar-toggle">
+                <i class="ace-icon fa" ng-class="{'fa-angle-double-right':collapse,'fa-angle-double-left':!collapse}"
+                    ng-click="collapse=!collapse"></i>
+            </div>
+        </div>
+
+        <div ng-class="{'col-md-11':collapse,'col-md-10':!collapse}">
+            <div style="margin-top: 10px;" ng-if="curItem.href!='home.html'">
+                <ol class="breadcrumb">
+                    <span style="margin-right: 10px;">当前位置:</span>
+                    <li><a class="pointer" ng-click="goHome()">首页</a></li>
+                    <li ng-repeat="position in positionStack" ng-class="{active:$last}">
+                        <a class="pointer" ng-if="position.href&&!$last" ng-click="toggleMenuByHref(position.href,true)">{{position.title}}</a>
+                        <span ng-if="!position.href||$last">{{position.title}}</span>
+                    </li>
+                </ol>
+            </div>
+            <iframe id="iframe" src="{{curItem.href}}" style="border: 0;" width="100%"
+                     frameborder="no" marginwidth="0" marginheight="0" scrolling="auto" allowtransparency="yes"></iframe>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="serviceApplyModal">
+    <div class="modal-header">
+        <strong>{{opt.title}}</strong>
+    </div>
+    <div class="modal-body">{{opt.content}}</div>
+    <div class="modal-footer">
+        <button class="btn btn-primary fa fa-save" ng-click="ok()">{{opt.okText}}</button>
+        <button class="btn btn-default fa fa-remove" ng-click="cancel()">{{opt.cancelText}}</button>
+    </div>
+</script>
+</body>
+</html>

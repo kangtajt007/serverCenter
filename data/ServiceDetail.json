@@ -1,0 +1,20 @@
+{
+  "id":"200344044040444",
+  "name": "广东省9-16级地图服务",
+  "keyword":["广东省","9-16级","地图"],
+  "species":"地图服务",
+  "type":"WMS服务",
+  "version": "V1.0",
+  "address":"http://127.0.0.1:8080/arcgisserver",
+  "registerTime":"2015--01-02 09:00:00",
+  "description":"广东省9-16级地图服务数据广东省9-16级地图服务数据广东省9-16级地图服务数据广东省9-16级地图服务数据广东省9-16级地图服务数据广东省9-16级地图服务数据。",
+  "thumbnail":"../img/map.png",
+  "extend":{"east":"112.22","west":"113.4","north":"23.44","south":"22.32"},
+  "coordinateSystem":"WGS-84",
+  "memo":"...",
+  "belongTo":"广东省公安厅",
+  "linkMan":"张三",
+  "telephone":"13912345678",
+  "linkAddress":"广东省公安厅黄华路97号",
+  "downloadResource":[{"name":"二次开发手册.doc","href":"#"},{"name":"调用包.rar","href":"#"}]
+}

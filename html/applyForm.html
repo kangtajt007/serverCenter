@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="baseApp">
+<head>
+    <meta charset="utf-8">
+    <title>服务申请</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/angular-chart.css">
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="../js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../js/respond.min.js"></script>
+    <script type="text/javascript" src="../js/ie-shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/BaseServices.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <script type="text/javascript" src="../js/angular-locale_zh-cn.js"></script>
+    <style type="text/css">
+        td > input {
+            width: 80px;
+        }
+    </style>
+</head>
+<body style="overflow-x: hidden;" ng-controller="applyFormCtrl">
+    <div class="container-fluid" style="margin: 10px;">
+        <form name="frm">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>服务申请方信息</strong>
+            </div>
+            <div class="panel-body form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">姓名:<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-required="true"
+                                ng-model="applyer.name" name="applyerName" placeholder="申请人的姓名">
+                    </div>
+                    <div class="col-sm-1 error-div">
+                        <span ng-show="frm.applyerName.$error.required">必填</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">使用单位名称:<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-required="true"
+                                ng-model="applyer.belongTo" name="belongTo" placeholder="使用单位名称">
+                    </div>
+                    <div class="col-sm-1 error-div">
+                        <span ng-show="frm.belongTo.$error.required">必填</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">联系电话:<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-required="true"
+                                ng-model="applyer.telephone" name="telephone" placeholder="联系电话">
+                    </div>
+                    <div class="col-sm-1 error-div">
+                        <span ng-show="frm.telephone.$error.required">必填</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">联系地址:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="applyer.address" placeholder="联系地址">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">业务系统名称:<span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-required="true"
+                                ng-model="applyer.systemName" name="systemName" placeholder="调用服务的业务系统名称">
+                    </div>
+                    <div class="col-sm-1 error-div">
+                        <span ng-show="frm.systemName.$error.required">必填</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">开发单位名称:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="applyer.devCompany" placeholder="调用功能的开发单位名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">系统功能概述:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="applyer.systemDesc" placeholder="系统的功能概述">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-bordered" style="width: 97%;margin:0 0 0 15px;">
+                <thead style="background: #BFE3EC;">
+                    <tr>
+                        <th width="250">服务名称</th>
+                        <th>
+                            <span tooltip="必填">启用时间</span>
+                            <span class="red">*</span></th>
+                        <th>
+                            <span tooltip="必填">截止时间</span>
+                            <span class="red">*</span>
+                        </th>
+                        <th>
+                            <span tooltip="必填">调用人数</span>
+                            <span class="red">*</span>
+                        </th>
+                        <th>
+                            <span tooltip="必填">预计并发数</span>
+                            <span class="red">*</span>
+                        </th>
+                        <th>
+                            <span tooltip="必填">预计日访问量</span>
+                            <span class="red">*</span>
+                        </th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="service in services">
+                        <td>{{service.title}}</td>
+                        <td>
+                            <div>
+                                <p class="input-group" style="width: 100px;">
+                                    <input type="text" style="height: 28px;width: 100px;" class="form-control" datepicker-popup="{{format}}"
+                                            ng-model="service.startTime" ng-required="true" name="startTime" is-open="service.sOpened" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event,service,'sOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <p class="input-group" style="width: 100px;">
+                                    <input type="text" style="height: 28px;width: 100px;" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="service.endTime" ng-required="true" name="endTime" is-open="service.eOpened" min-date="service.startTime"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event,service,'eOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" ng-required="true" name="totalUsers" ng-model="service.totalUsers"/>
+                        </td>
+                        <td>
+                            <input type="text" ng-required="true" name="concurrent" ng-model="service.concurrent"/>
+                        </td>
+                        <td>
+                            <input type="text" ng-required="true" name="dayUsers" ng-model="service.dayUsers"/>
+                        </td>
+                        <td>
+                            <a class="btn btn-default fa fa-remove" ng-click="remove(service)"
+                               ng-disabled="services.length==1">移除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row" style="margin-top: 80px;">
+            <div class="col-md-4 col-md-offset-4">
+                <a class="btn btn-primary fa fa-save" ng-disabled="frm.$invalid||services.length==0" ng-click="submit()">提交</a>
+                <a class="btn btn-default fa fa-circle-o-notch" ng-click="reset()">重置</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</body>
+</html>
